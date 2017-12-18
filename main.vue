@@ -33,9 +33,9 @@
         </section>
         <nav class="pagination" v-if="emojis">
             <a 
-                :href="'#page=' + page" 
+                href="#" 
                 v-for="page in pagination.pages" 
-                @click="flip(page)"
+                @click.prevent="flip(page)"
                 :class="{'active': (page - 1) === pagination.current}"
             >
                 {{ page }}
@@ -57,6 +57,17 @@ function hashObj () {
     });
     return retObj;
 }
+function setHash (name, val, clean = false) {
+    const hash = hashObj();
+    hash[name] = val;
+    if (clean) {
+        location.hash = `${name}=${val}`
+    } else {
+        location.hash = Object.keys(hash).map(name => `${name}=${hash[name]}`).join('&');
+    }
+    return location.hash;
+}
+let searchCache = '';
 export default {
     name: 'Main',
     data () {
@@ -72,19 +83,27 @@ export default {
     },
     computed: {
         emojiList () {
+
+            if (this.search !== searchCache) {
+                this.pagination.current = 0;
+                searchCache = this.search;
+                setHash('search', this.search, true);
+            }
+
             const start = this.pagination.current * this.pagination.emojiPerPage;
             const end = start + this.pagination.emojiPerPage;
             const search = this.search ? this.search : '[\s\S]*';
             const filtered = this.emojis.filter(emoji => {
                 return (new RegExp(this.search, 'i')).test(emoji.name);
             });
+            
             this.pagination.pages = Math.floor(filtered.length / this.pagination.emojiPerPage);
             return filtered.slice(start, end);
         }
     },
     methods: {
         flip (page) {
-            this.pagination.current = page - 1;
+            setHash('page', page);
         }
     },
     created () {
@@ -97,8 +116,19 @@ export default {
                     this.emojis = JSON.parse(data.files['emojis.json'].content).emojis;
                     this.pagination.pages = Math.floor(this.emojis.length / this.pagination.emojiPerPage);
                     this.pagination.current = page - 1;
+                    this.search = hashObj()['search'] || '';
                 });
         });
+
+        window.onhashchange = () => {
+            const hash = hashObj();
+            if (hash['page']) {
+                this.pagination.current = hash['page'] - 1;
+            }
+            if (hash['search']) {
+                this.search = hash['search'];
+            }
+        }
     }
 } 
 </script>
