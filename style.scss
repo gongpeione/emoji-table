@@ -95,12 +95,17 @@ main {
 
 @media screen and (max-width: 768px) {
     main {
-        width: 96vw;
+        width: 95vw;
+    }
+    header {
+        h1 {
+            font-size: 40px;
+        }
     }
     .emoji {
         li {
-            width: 16vw;
-            height: 16vw;
+            width: 19vw;
+            height: 19vw;
         }
         h3 {
             font-size: 20px;
