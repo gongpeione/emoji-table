@@ -49,6 +49,14 @@
 </template>
 
 <script>
+function hashObj () {
+    const retObj = {};
+    const hashArr = location.hash.slice(1).split('&').forEach(item => {
+        const split = item.split('=');
+        retObj[split[0]] = split[1];
+    });
+    return retObj;
+}
 export default {
     name: 'Main',
     data () {
@@ -80,7 +88,7 @@ export default {
         }
     },
     created () {
-        const page = location.hash;
+        const page = +hashObj()['page'] || 0;
         const emojiUrl = 'https://api.github.com/gists/0bf11a9aff0d6da7b46f1490f86a71eb';
         new Promise((r, j) => {
             fetch(emojiUrl)
@@ -88,6 +96,7 @@ export default {
                 .then(data => {
                     this.emojis = JSON.parse(data.files['emojis.json'].content).emojis;
                     this.pagination.pages = Math.floor(this.emojis.length / this.pagination.emojiPerPage);
+                    this.pagination.current = page - 1;
                 });
         });
     }
