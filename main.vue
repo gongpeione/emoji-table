@@ -88,7 +88,7 @@ export default {
         }
     },
     created () {
-        const page = +hashObj()['page'] || 0;
+        const page = +hashObj()['page'] || 1;
         const emojiUrl = 'https://api.github.com/gists/0bf11a9aff0d6da7b46f1490f86a71eb';
         new Promise((r, j) => {
             fetch(emojiUrl)

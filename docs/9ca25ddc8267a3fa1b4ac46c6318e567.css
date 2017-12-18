@@ -1,1 +1,115 @@
-body{background-color:#23396d;min-height:100vh}body *{font-weight:300;color:#719cfc}body *,body :after,body :before{box-sizing:border-box}header h1{text-align:center;color:#fff;font-size:50px;font-family:Dancing Script,cursive;margin:80px}main{width:80vw;margin:0 auto}.search{padding:5px}.search input{width:100%;border:none;padding:10px 20px;font-size:20px;outline:none;font-family:Open Sans,Helvetica Neue,sans-serif;transition:transform .1s ease-in-out,box-shadow .2s ease-in-out;border-radius:10px;background-color:#3c599d;text-align:center}.search input:focus{transform:scale(1.05);box-shadow:0 0 20px rgba(0,0,0,.2)}.search input::placeholder{color:#23396d}.emoji{list-style:none;padding:0;display:flex;flex-wrap:wrap;margin-bottom:40px;color:#23396d}.emoji li{padding:5px;width:8vw;height:8vw;text-align:center}.emoji .cover{background:#719cfc;width:100%;height:100%;display:flex;justify-content:center;align-items:center;transition:transform .1s ease-in-out,box-shadow .2s ease-in-out;border-radius:10px}.emoji .cover:hover{transform:scale(1.1);box-shadow:0 0 20px rgba(0,0,0,.2)}.emoji .meta{display:none}.emoji h3{display:inline-block;margin:0;font-size:30px;color:#23396d}@media screen and (max-width:768px){main{width:95vw}header h1{font-size:40px}.emoji li{width:19vw;height:19vw}.emoji h3{font-size:20px}}.pagination{text-align:center;font-family:Open Sans,Helvetica Neue,sans-serif;margin-bottom:80px}.pagination a{text-align:center;text-decoration:none;font-family:inherit;display:inline-block;color:#719cfc;margin:0 2px;width:20px;height:20px;line-height:20px;font-size:12px;border-radius:50%}.pagination a.active{background-color:#719cfc;color:#23396d}.loading{margin:40px}.loading,footer{text-align:center}footer{font-size:12px;color:#3c599d;padding:20px 0}
+body {
+  background-color: #23396D;
+  /* Rectangle: */
+  /* Rectangle: */
+  min-height: 100vh; }
+
+body * {
+  box-sizing: border-box;
+  font-weight: 300;
+  color: #719CFC; }
+  body *::before, body *::after {
+    box-sizing: border-box; }
+
+header h1 {
+  text-align: center;
+  color: #fff;
+  font-size: 50px;
+  font-family: 'Dancing Script', cursive;
+  margin: 80px; }
+
+main {
+  width: 80vw;
+  margin: 0 auto; }
+
+.search {
+  padding: 5px; }
+  .search input {
+    width: 100%;
+    border: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    outline: none;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    transition: transform .1s ease-in-out, box-shadow .2s ease-in-out;
+    border-radius: 10px;
+    background-color: #3C599D;
+    text-align: center; }
+    .search input:focus {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); }
+    .search input::placeholder {
+      color: #23396D; }
+
+.emoji {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  color: #23396D; }
+  .emoji li {
+    padding: 5px;
+    width: 8vw;
+    height: 8vw;
+    text-align: center; }
+  .emoji .cover {
+    background: #719CFC;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform .1s ease-in-out, box-shadow .2s ease-in-out;
+    border-radius: 10px; }
+    .emoji .cover:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); }
+  .emoji .meta {
+    display: none; }
+  .emoji h3 {
+    display: inline-block;
+    margin: 0;
+    font-size: 30px;
+    color: #23396D; }
+
+@media screen and (max-width: 768px) {
+  main {
+    width: 95vw; }
+  header h1 {
+    font-size: 40px; }
+  .emoji li {
+    width: 19vw;
+    height: 19vw; }
+  .emoji h3 {
+    font-size: 20px; } }
+
+.pagination {
+  text-align: center;
+  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin-bottom: 80px; }
+  .pagination a {
+    text-align: center;
+    text-decoration: none;
+    font-family: inherit;
+    display: inline-block;
+    color: #719CFC;
+    margin: 0 2px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    border-radius: 50%; }
+    .pagination a.active {
+      background-color: #719CFC;
+      color: #23396D; }
+
+.loading {
+  text-align: center;
+  margin: 40px; }
+
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: #3C599D;
+  padding: 20px 0; }
