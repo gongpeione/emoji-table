@@ -41,6 +41,10 @@
                 {{ page }}
             </a>
         </nav>
+        <footer>
+            Emoji data from <a href="https://gist.githubusercontent.com/oliveratgithub/0bf11a9aff0d6da7b46f1490f86a71eb/">Emojis.json</a> - 
+            Made with ❤ By <a href="https://geeku.net/">Geeku</a>
+        </footer>
     </main>
 </template>
 
