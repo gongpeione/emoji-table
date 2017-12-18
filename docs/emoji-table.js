@@ -7511,6 +7511,7 @@ exports.reload = tryWrap(function (id, options) {
     data: function data() {
       return {
         emojis: [],
+        search: '',
         pagination: {
           pages: 0,
           current: 0,
@@ -7521,8 +7522,16 @@ exports.reload = tryWrap(function (id, options) {
 
     computed: {
       emojiList: function emojiList() {
-        var prev = this.pagination.current * this.pagination.emojiPerPage;
-        return this.emojis.slice(prev, prev + this.pagination.emojiPerPage);
+        var _this = this;
+
+        var start = this.pagination.current * this.pagination.emojiPerPage;
+        var end = start + this.pagination.emojiPerPage;
+        var search = this.search ? this.search : '[\s\S]*';
+        var filtered = this.emojis.filter(function (emoji) {
+          return new RegExp(_this.search, 'i').test(emoji.name);
+        });
+        this.pagination.pages = Math.floor(filtered.length / this.pagination.emojiPerPage);
+        return filtered.slice(start, end);
       }
     },
     methods: {
@@ -7531,15 +7540,16 @@ exports.reload = tryWrap(function (id, options) {
       }
     },
     created: function created() {
-      var _this = this;
+      var _this2 = this;
 
+      var page = location.hash;
       var emojiUrl = 'https://api.github.com/gists/0bf11a9aff0d6da7b46f1490f86a71eb';
       new Promise(function (r, j) {
         fetch(emojiUrl).then(function (res) {
           return res.json();
         }).then(function (data) {
-          _this.emojis = JSON.parse(data.files['emojis.json'].content).emojis;
-          _this.pagination.pages = Math.floor(_this.emojis.length / _this.pagination.emojiPerPage);
+          _this2.emojis = JSON.parse(data.files['emojis.json'].content).emojis;
+          _this2.pagination.pages = Math.floor(_this2.emojis.length / _this2.pagination.emojiPerPage);
         });
       });
     }
@@ -7551,21 +7561,21 @@ if (__vue__options__.functional) {
   console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.");
 }
 __vue__options__.render = function render() {
-  var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('main', [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm.emojis.length ? _c('ul', { staticClass: "emoji" }, _vm._l(_vm.emojiList, function (emoji) {
+  var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('main', [_c('header', [_c('h1', [_vm._v("Emoji Table")]), _vm._v(" "), _c('section', { staticClass: "search" }, [_c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.search, expression: "search" }], attrs: { "type": "text", "id": "s", "placeholder": "Search Emoji..." }, domProps: { "value": _vm.search }, on: { "input": function input($event) {
+        if ($event.target.composing) {
+          return;
+        }_vm.search = $event.target.value;
+      } } })])]), _vm._v(" "), _vm.emojis.length ? _c('ul', { staticClass: "emoji" }, _vm._l(_vm.emojiList, function (emoji) {
     return _c('li', { on: { "click": function click($event) {
           _vm.showEmoji(emoji, $event);
         } } }, [_c('div', { staticClass: "cover" }, [_c('h3', [_vm._v(_vm._s(emoji.emoji))]), _vm._v(" "), _c('section', { staticClass: "meta" }, [_c('p', [_c('span', [_vm._v("Name")]), _c('span', [_vm._v(_vm._s(emoji.name))])]), _vm._v(" "), _c('p', [_c('span', [_vm._v("Shortname")]), _c('span', [_vm._v(_vm._s(emoji.shortname))])]), _vm._v(" "), _c('p', [_c('span', [_vm._v("Unicode")]), _c('span', [_vm._v(_vm._s(emoji.unicode))])]), _vm._v(" "), _c('p', [_c('span', [_vm._v("HTML")]), _c('span', [_vm._v(_vm._s(emoji.html))])])])])]);
   })) : _c('section', { staticClass: "loading" }, [_vm._v("\n        Loading……\n    ")]), _vm._v(" "), _vm.emojis ? _c('nav', { staticClass: "pagination" }, _vm._l(_vm.pagination.pages, function (page) {
-    return _c('a', { class: { 'active': page === _vm.pagination.current }, attrs: { "href": '#page=' + page }, on: { "click": function click($event) {
+    return _c('a', { class: { 'active': page - 1 === _vm.pagination.current }, attrs: { "href": '#page=' + page }, on: { "click": function click($event) {
           _vm.flip(page);
         } } }, [_vm._v("\n            " + _vm._s(page) + "\n        ")]);
   })) : _vm._e()]);
 };
-__vue__options__.staticRenderFns = [function render() {
-  var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('header', [_c('h1', [_vm._v("Emoji Table")])]);
-}, function render() {
-  var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('section', { staticClass: "search" }, [_c('input', { attrs: { "type": "text", "id": "s" } })]);
-}];
+__vue__options__.staticRenderFns = [];
 if (module.hot) {
   (function () {
     var hotAPI = require("vue-hot-reload-api");

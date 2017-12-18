@@ -1,9 +1,12 @@
 <template>
     <main>
-        <header><h1>Emoji Table</h1></header>
-        <section class="search">
-            <input type="text" id="s">
-        </section>
+        <header>
+            <h1>Emoji Table</h1>
+            <section class="search">
+                <input type="text" id="s" placeholder="Search Emoji..." v-model="search">
+            </section>
+        </header>
+        
         <ul class="emoji" v-if="emojis.length">
             <li v-for="emoji in emojiList" @click="showEmoji(emoji, $event)">
                 <div class="cover">
@@ -33,7 +36,7 @@
                 :href="'#page=' + page" 
                 v-for="page in pagination.pages" 
                 @click="flip(page)"
-                :class="{'active': page === pagination.current}"
+                :class="{'active': (page - 1) === pagination.current}"
             >
                 {{ page }}
             </a>
@@ -47,6 +50,7 @@ export default {
     data () {
         return {
             emojis: [],
+            search: '',
             pagination: {
                 pages: 0,
                 current: 0,
@@ -56,8 +60,14 @@ export default {
     },
     computed: {
         emojiList () {
-            const prev = this.pagination.current * this.pagination.emojiPerPage;
-            return this.emojis.slice(prev, prev + this.pagination.emojiPerPage);
+            const start = this.pagination.current * this.pagination.emojiPerPage;
+            const end = start + this.pagination.emojiPerPage;
+            const search = this.search ? this.search : '[\s\S]*';
+            const filtered = this.emojis.filter(emoji => {
+                return (new RegExp(this.search, 'i')).test(emoji.name);
+            });
+            this.pagination.pages = Math.floor(filtered.length / this.pagination.emojiPerPage);
+            return filtered.slice(start, end);
         }
     },
     methods: {
@@ -66,6 +76,7 @@ export default {
         }
     },
     created () {
+        const page = location.hash;
         const emojiUrl = 'https://api.github.com/gists/0bf11a9aff0d6da7b46f1490f86a71eb';
         new Promise((r, j) => {
             fetch(emojiUrl)

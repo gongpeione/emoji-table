@@ -1,18 +1,22 @@
 body {
-  background-color: #e0c59c; }
+  background-color: #23396D;
+  /* Rectangle: */
+  /* Rectangle: */
+  min-height: 100vh; }
 
 body * {
   box-sizing: border-box;
-  font-family: 'Dancing Script', cursive;
-  color: #6d3b22; }
+  font-weight: 300;
+  color: #719CFC; }
   body *::before, body *::after {
     box-sizing: border-box; }
 
 header h1 {
   text-align: center;
-  margin: 50px;
-  color: #6d3b22;
-  font-size: 40px; }
+  color: #fff;
+  font-size: 50px;
+  font-family: 'Dancing Script', cursive;
+  margin: 80px; }
 
 main {
   width: 80vw;
@@ -26,26 +30,31 @@ main {
     padding: 10px 20px;
     font-size: 20px;
     outline: none;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
     transition: transform .1s ease-in-out, box-shadow .2s ease-in-out;
     border-radius: 10px;
-    background-color: #ffeec9; }
+    background-color: #3C599D;
+    text-align: center; }
     .search input:focus {
       transform: scale(1.05);
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); }
+    .search input::placeholder {
+      color: #23396D; }
 
 .emoji {
   list-style: none;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; }
+  margin-bottom: 40px;
+  color: #23396D; }
   .emoji li {
     padding: 5px;
     width: 8vw;
     height: 8vw;
     text-align: center; }
   .emoji .cover {
-    background: #ffeec9;
+    background: #719CFC;
     width: 100%;
     height: 100%;
     display: flex;
@@ -61,14 +70,37 @@ main {
   .emoji h3 {
     display: inline-block;
     margin: 0;
-    font-size: 30px; }
+    font-size: 30px;
+    color: #23396D; }
+
+@media screen and (max-width: 768px) {
+  main {
+    width: 96vw; }
+  .emoji li {
+    width: 16vw;
+    height: 16vw; }
+  .emoji h3 {
+    font-size: 20px; } }
 
 .pagination {
   text-align: center;
-  font-family: 'Open Sans', 'Helvetica Neue', sans-serif; }
+  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin-bottom: 80px; }
   .pagination a {
+    text-align: center;
     text-decoration: none;
-    font-family: inherit; }
+    font-family: inherit;
+    display: inline-block;
+    color: #719CFC;
+    margin: 0 2px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    border-radius: 50%; }
+    .pagination a.active {
+      background-color: #719CFC;
+      color: #23396D; }
 
 .loading {
   text-align: center;
